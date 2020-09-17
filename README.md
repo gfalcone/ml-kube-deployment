@@ -177,16 +177,56 @@ First let's create the Kubernetes cluster (this may take a while).
 gcloud container clusters create ml-cluster --num-nodes=2
 ```
 
-Let's deploy the application in Kubernetes : 
+Now, let's deploy the container on Kubernetes
+
+If you do not need to specify the number of memory you need, here is what you have to do :
 
 
 ```bash
 kubectl create deployment ml-kube-deployment --image=gcr.io/${GCP_PROJECT_ID}/ml-kube-deployment
 ```
 
+Otherwise, you will need to create a config file named `config.yaml`:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: ml-kube-deployment
+  name: ml-kube-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ml-kube-deployment
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: ml-kube-deployment
+    spec:
+      containers:
+      - image: gcr.io/$GCP_PROJECT_ID/ml-kube-deployment
+        name: ml-kube-deployment
+        resources:
+          requests:
+            memory: "4G"
+status: {}
+
+```
+
+And do this : 
+
+```bash
+echo config.yaml | kubectl apply -f -
+```
+
 And now, we need to make this application available to the world ! 
 
-Note that here we specify the target port which is the port on which we will redirect the API requests to the container ! This may take a wh
+Note that here we specify the target port which is the port on which we will redirect the API requests to the container ! This may take a while
 
 ```bash
 kubectl expose deployment ml-kube-deployment --type=LoadBalancer --port 80 --target-port 8000
