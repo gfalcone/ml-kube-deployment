@@ -130,7 +130,7 @@ docker build --tag=test .
 docker run -p 8000:8000 test
 ```
 
-You should now be able to test your API through the Swagger interface on [http://localhost:8000/docs]()
+You should now be able to test your API through the Swagger interface on [](http://localhost:8000/docs)
 
 ## Deploy container on Kubernetes (GCP)
 
@@ -138,7 +138,7 @@ You should now be able to test your API through the Swagger interface on [http:/
 
 First and foremost, you will need a GCP account and you will need to create a Project on GCP.
 
-When this is done, configure the Google Cloud SDK : [https://cloud.google.com/sdk/docs/install]().
+When this is done, configure the Google Cloud SDK : [](https://cloud.google.com/sdk/docs/install).
 
 
 To ease the next steps, please specify the GCP PROJECT_ID into an environment variable like this : 
@@ -210,7 +210,7 @@ ml-kube-deployment   LoadBalancer   10.3.246.229   <pending>     80:30661/TCP   
 ml-kube-deployment   LoadBalancer   10.3.246.229   34.74.166.9   80:30661/TCP   38s
 ```
 
-Then I was able to interact with my API on [http://34.74.166.9]()
+Then I was able to interact with my API on [](http://34.74.166.9)
 
 ### Cleanup
 
